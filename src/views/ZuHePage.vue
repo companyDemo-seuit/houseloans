@@ -1,22 +1,30 @@
 <template>
   <div>
     <group v-show="!showsRatePage && !showgRatePage">
-      <x-input  title="商业贷款:"  placeholder="请输入贷款总额" v-model="sloanMoney">
+      <x-input type="number" title="商业贷款:"  placeholder="请输入贷款总额" v-model="sloanMoney">
         <span slot="right">万元</span>
       </x-input>
-       <popup-picker  :data="sloanYearsList" title="商业贷款按揭年数:"  v-model="sloanYear" style="text-align:left">
+       <popup-picker  :data="sloanYearsList" title="商业贷款年限:"  v-model="sloanYear" style="text-align:left">
       </popup-picker>
       <x-input  title="公积金贷款:"  placeholder="请输入贷款总额" v-model="gloanMoney">
         <span slot="right">万元</span>
       </x-input>
-       <popup-picker  :data="gloanYearsList" title="公积金贷款按揭年数" v-model="gloanYear"  style="text-align:left">
+       <popup-picker  :data="gloanYearsList" title="公积金贷款年限" v-model="gloanYear"  style="text-align:left">
       </popup-picker>
-        <cell is-link @click.native="srateClick">
+        <!-- <cell is-link @click.native="srateClick">
         <span slot="title"><span>商业利率:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{sshowRate}}</span></span>
-      </cell>
-      <cell is-link @click.native="grateClick">
+      </cell> -->
+      <x-input type="number" title="商业利率" v-model="sactRate">
+        <span slot="right">百分比(%)</span>
+      </x-input>
+
+      <!-- <cell is-link @click.native="grateClick">
         <span slot="title"><span>公积金利率:</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{gshowRate}}</span></span>
-      </cell>
+      </cell> -->
+      <x-input type="number" title="公积金利率" v-model="gactRate">
+        <span slot="right">百分比(%)</span>
+      </x-input>
+
       <x-button style="margin: 20px auto; width: 95%;" type="warn" @click.native="caculateLoan">开始计算</x-button>
     </group>
     <MoneyRate v-show="showsRatePage" class="payRate" @submit="sRateSubmit" :baseRate="sbaseRate"></MoneyRate>
@@ -53,8 +61,8 @@ export default {
       gloanYear:["20年(240期)"],
       sshowRate:'4.90%',
       gshowRate:'3.25%',
-      sactRate:'0.049',
-      gactRate:'0.0325',
+      sactRate: 4.9 ,
+      gactRate:3.25,
       showsRatePage:false,
       showgRatePage:false,
     };
@@ -98,8 +106,8 @@ export default {
         gloanMoney:this.gloanMoney,//公积金贷款总额
         smonths:smonths,//商业贷款年限
         gmonths:gmonths,//公积金贷款年限
-        srate:this.sactRate,//商业贷款利率
-        grate:this.gactRate,//公积金贷款利率
+        srate:this.sactRate/ 100,//商业贷款利率
+        grate:this.gactRate/ 100,//公积金贷款利率
          }
       });
     },

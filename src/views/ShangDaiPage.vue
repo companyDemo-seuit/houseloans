@@ -9,14 +9,17 @@
         <span slot="title"><span>首付比例</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{payPercent}}</span></span>
       </cell>
       <cell value="万元">
-         <span slot="title"><span>贷款总额</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{loanMoney}}</span></span>
+         <span slot="title"><span>贷款金额</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{loanMoney}}</span></span>
       </cell>
-      <popup-picker title="按揭年数" :data="loanYearsList"  v-model="loanYear" value-text-align="left">
+      <popup-picker title="贷款年限" :data="loanYearsList"  v-model="loanYear" value-text-align="left">
 
       </popup-picker>
-      <cell is-link @click.native="showRatePage=true">
-        <span slot="title"><span>利&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;率</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{showRate}}</span></span>
-      </cell>
+      <x-input type="number" title="贷款利率" v-model="actRate">
+        <span slot="right">百分比(%)</span>
+      </x-input>
+      <!-- <cell is-link @click.native="showRatePage=true">
+        <span slot="title"><span>贷款利率</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{showRate}}</span></span>
+      </cell> -->
       <x-button style="margin: 20px auto; width: 95%;" type="warn" @click.native="caculateLoan">开始计算</x-button>
     </group>
     <PayRate v-show="showPayPage" class="payRate" @submit="submit" ></PayRate>
@@ -55,7 +58,7 @@ export default {
       loanYears: "",
       moneyRate: "",
       // baseRate: 4.9 / 100,
-      actRate: 4.9 / 100,
+      actRate: 4.9 ,
       // showRate: "4.9%",
       payRateLabel: "三成",
       showPayPage: false,
@@ -80,18 +83,18 @@ export default {
       return (this.actRate * 100).toFixed(2) + '%'
     },
     loanMoney() {
-      return (this.totalPrice * (1 - this.payRate)).toFixed(2);
+      return (this.totalPrice * (1 - this.payRate)).toFixed(4);
     },
     payPercent() {
       if (!this.payRateLabel) {
         this.payMoney = this.payRate;
         return this.payRate + "万";
       } else {
-        this.payMoney = (this.totalPrice * this.payRate).toFixed(2);
+        this.payMoney = (this.totalPrice * this.payRate).toFixed(4);
         return (
           this.payRateLabel +
           "(" +
-          (this.totalPrice * this.payRate).toFixed(2) +
+          (this.totalPrice * this.payRate).toFixed(4) +
           "万" +
           ")"
         );
@@ -107,7 +110,7 @@ export default {
         query: { totalPrice: this.totalPrice,
         loanMoney:this.loanMoney,
         months:months,
-        rate:this.actRate,
+        rate:this.actRate/ 100,
         payMoney:this.payMoney }
       });
     },
@@ -133,5 +136,9 @@ export default {
 }
 .vux-popup-picker-value{
   padding-left:20px!important;
+}
+
+.weui-btn_warn {
+    background-color: #4270d0!important;
 }
 </style>

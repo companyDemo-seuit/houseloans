@@ -1,5 +1,5 @@
 <template>
-<div style="margin-top:10px;text-align: center;width:220px;transform: translateZ(0px);">
+<div style="margin-top:60px;text-align: center;width:220px;transform: translateZ(0px);">
   <canvas ref="canvas" width="160" height="160"></canvas>
   <div style="">
     <p class="houseMoney">
@@ -92,7 +92,7 @@ export default {
         this.drawRing(this.ctx, drawitem.startarc,
         drawEnd, drawitem.rcolor);
       })
-      if (this.aniend >= this.maxEndArc) {       
+      if (this.aniend >= this.maxEndArc) {
           window.cancelAnimationFrame(this.aniid); //可以取消该次动画。
           return;
       }
@@ -102,7 +102,7 @@ export default {
       ctx.beginPath();
       ctx.lineWidth = 2;
       ctx.strokeStyle ="#000000"; // rcolor;
-      
+
       ctx.arc(
         80,
         80,
@@ -152,5 +152,3 @@ export default {
   }
 };
 </script>
-
-

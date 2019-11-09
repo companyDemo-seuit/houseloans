@@ -15,4 +15,9 @@ export default {
 
 <style lang="less">
 @import '~vux/src/styles/reset.less';
+body {
+    line-height: 1.6;
+    color: #232323;
+    font-family: -apple-system-font, "Helvetica Neue", sans-serif;
+}
 </style>
