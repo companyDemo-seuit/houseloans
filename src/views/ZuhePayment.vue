@@ -149,8 +149,8 @@ export default {
       this.houseTotalPrice={name:"还款总价",value:(totalPay/10000).toFixed(2)}//还款总价,cuowu
       this.ringList=[
         // { name: "首付金额", value: (~~this.payMoney).toFixed(2), color: "#6EBFFF" },
-        { name: "贷款总价", value: (this.totalPrice/10000).toFixed(2),unit: "万元", color: "#FFDA7C" },
-        { name: "支付利息", value: (totalInterest/10000).toFixed(2),unit: "万元", color: "#FF70A0" }
+        { name: "贷款总价", value: (this.totalPrice/10000).toFixed(4),unit: "万元", color: "#FFDA7C" },
+        { name: "支付利息", value: (totalInterest/10000).toFixed(4),unit: "万元", color: "#FF70A0" }
       ]
     }
   },
@@ -181,3 +181,86 @@ export default {
   }
 }
 </script>
+<style>
+
+.outerLayerDiv .vux-button-group {
+    -webkit-touch-callout: none;
+    display: box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background: #4270d0 !important;
+    padding: 5%;
+width: 90%;
+position: absolute;
+left: -0%;
+}
+.vux-button-group > a{
+      color: #fff!important;
+          background: #4270d0 !important;
+}
+.vux-button-group > a.vux-button-group-current {
+    background: #fff !important;
+          color: #4270d0!important;
+}
+
+.vux-button-group > a.vux-button-tab-item-first:after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 200%;
+    height: 1px;
+        /* color: #fff!important;
+        background: #4270d0!important;*/
+    border: 1px solid #fff!important;
+    height: 200%;
+    -webkit-transform-origin: left top;
+    transform-origin: left top;
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    border-top-left-radius: 32px;
+    border-bottom-left-radius: 32px;
+}
+
+.vux-button-group > a.vux-button-tab-item-middle:after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 200%;
+    height: 1px;
+        /* color: #fff!important;
+        background: #4270d0!important;*/
+    border-right: 1px solid #fff!important;
+    border-top: 1px solid #fff!important;
+    border-bottom: 1px solid #fff!important;
+    border-left: none;
+    height: 200%;
+    -webkit-transform-origin: left top;
+    transform-origin: left top;
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+}
+.vux-button-group > a.vux-button-tab-item-last:after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 200%;
+    height: 1px;
+        /* color: #fff!important;*/
+    border-right: 1px solid #fff!important;
+    border-top: 1px solid #fff!important;
+    border-bottom: 1px solid #fff!important;
+    border-left: none;
+    height: 200%;
+    -webkit-transform-origin: left top;
+    transform-origin: left top;
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    border-top-right-radius: 32px;
+    border-bottom-right-radius: 32px;
+}
+
+</style>

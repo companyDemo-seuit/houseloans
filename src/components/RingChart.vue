@@ -1,14 +1,14 @@
 <template>
 <div style="margin-top:60px;text-align: center;width:220px;transform: translateZ(0px);">
-  <canvas ref="canvas" width="160" height="160"></canvas>
+  <!-- <canvas ref="canvas" width="160" height="160"></canvas> -->
   <div style="">
-    <p class="houseMoney">
+    <!-- <p class="houseMoney">
         <span></span>
         <span>{{houseTotalPrice.name}}</span>
         <span>:</span>
         <span>{{houseTotalPrice.value}}</span>
         <span>万元</span>
-    </p>
+    </p> -->
     <ul>
       <li class="houseMoney" v-for="item in ringList" :key="item.name">
         <span :style="{color:item.color}">▇</span>

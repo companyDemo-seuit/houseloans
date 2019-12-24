@@ -2,7 +2,7 @@
   <div>
     <group v-show="!showPayPage">
 
-      <x-input type="number" title="房款总价" v-model="totalPrice">
+      <!-- <x-input type="number" title="房款总价" v-model="totalPrice">
         <span slot="right">万元</span>
       </x-input>
       <cell is-link @click.native="showPayPage=true">
@@ -10,7 +10,10 @@
       </cell>
       <cell value="万元">
          <span slot="title"><span>贷款金额</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{loanMoney}}</span></span>
-      </cell>
+      </cell> -->
+      <x-input type="number" title="贷款金额" v-model="loanMoney">
+        <span slot="right">万元</span>
+      </x-input>
       <popup-picker title="贷款年限" :data="loanYearsList"  v-model="loanYear" value-text-align="left">
 
       </popup-picker>
@@ -53,7 +56,7 @@ export default {
       isUnique: true,
       loanYearsList: [],
       loanYear: ["20年(240期)"],
-      totalPrice: 100,
+      loanMoney: 100.22,
       payRate: 0.3,
       payMoney: 0,
       loanYears: "",
@@ -81,24 +84,24 @@ export default {
     showRate () {
       return (this.actRate * 100).toFixed(2) + '%'
     },
-    loanMoney() {
-      return (this.totalPrice * (1 - this.payRate)).toFixed(4);
-    },
-    payPercent() {
-      if (!this.payRateLabel) {
-        this.payMoney = this.payRate;
-        return this.payRate + "万";
-      } else {
-        this.payMoney = (this.totalPrice * this.payRate).toFixed(4);
-        return (
-          this.payRateLabel +
-          "(" +
-          (this.totalPrice * this.payRate).toFixed(4) +
-          "万" +
-          ")"
-        );
-      }
-    }
+    // loanMoney() {
+    //   return (this.totalPrice * (1 - this.payRate)).toFixed(4);
+    // },
+    // payPercent() {
+    //   if (!this.payRateLabel) {
+    //     this.payMoney = this.payRate;
+    //     return this.payRate + "万";
+    //   } else {
+    //     this.payMoney = (this.totalPrice * this.payRate).toFixed(4);
+    //     return (
+    //       this.payRateLabel +
+    //       "(" +
+    //       (this.totalPrice * this.payRate).toFixed(4) +
+    //       "万" +
+    //       ")"
+    //     );
+    //   }
+    // }
   },
   methods: {
     caculateLoan() {
@@ -106,7 +109,8 @@ export default {
       let months = month[1].substr(0,month[1].length-1);
       this.$router.push({
         path: "/payment",
-        query: { totalPrice: this.totalPrice,
+        query: {
+          // totalPrice: this.totalPrice,
         loanMoney:this.loanMoney,
         months:months,
         rate:this.actRate  / 100,

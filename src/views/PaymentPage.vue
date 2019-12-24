@@ -1,7 +1,7 @@
 <template>
 
   <div class="outerLayerDiv">
-    <div style="margin:0 auto;width:220px;">
+    <div style="margin:0 auto;width:220px;padding:20px;">
     <button-tab v-model="selectedItem">
         <button-tab-item @on-item-click="itemChange">等额本息</button-tab-item>
         <button-tab-item @on-item-click="itemChange">等额本金</button-tab-item>
@@ -33,24 +33,43 @@
         <span>元/月</span>
       </li>
     </ul>
-    <p class="disctext" style="text-align:center">以上结果仅供参考</p>
+    <!-- <p class="disctext" style="text-align:center">以上结果仅供参考</p> -->
     </div>
-  </div>
 
+    <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
+      <thead>
+        <tr style="background-color: #F7F7F7;font-size:12px;">
+          <th>期数</th>
+          <th>月供（元）</th>
+          <th>本金（元）</th>
+          <th>利息（元）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Apple</td>
+          <td>{{this.monthPay}}</td>
+          <td> x 1</td>
+          <td> x 1</td>
+        </tr>
+      </tbody>
+    </x-table>
+  </div>
 </template>
 <script>
-import { ButtonTab, ButtonTabItem, Divider } from "vux";
+import { XTable,ButtonTab, ButtonTabItem, Divider } from "vux";
 import RingChart from "../components/RingChart"
 import LoanCaculate from "../components/LoanCaculate"
 export default {
   components: {
+    XTable,
     ButtonTab,
     ButtonTabItem,
     Divider,
     RingChart
   },
   mounted(){
-    this.totalPrice= this.$route.query.totalPrice*10000;
+    // this.totalPrice= this.$route.query.totalPrice*10000;
     this.loanMoney= this.$route.query.loanMoney*10000;
     this.payMoney = this.$route.query.payMoney;
     this.months = this.$route.query.months;
@@ -89,11 +108,11 @@ export default {
       //console.log("总还款",Math.ceil(totalPay));
       let totalInterest = totalPay - this.loanMoney;
       //console.log("总利息",Math.ceil(totalInterest));
-      this.houseTotalPrice={name:"房款总价",value:(this.totalPrice/10000).toFixed(2)}
+      // this.houseTotalPrice={name:"房款总价",value:(this.totalPrice/10000).toFixed(2)}
       this.ringList=[
-        { name: "首付金额", value: (~~this.payMoney).toFixed(2),unit: "万元", color: "#7ec3fe" },
-        { name: "贷款总额", value: (this.loanMoney/10000).toFixed(2),unit: "万元", color: "#85e3c9" },
-        { name: "支付利息", value: (totalInterest/10000).toFixed(2),unit: "万元", color: "#e7db20" }
+        // { name: "首付金额", value: (~~this.payMoney).toFixed(2),unit: "万元", color: "#7ec3fe" },
+        { name: "贷款总额", value: (this.loanMoney/10000).toFixed(4),unit: "万元", color: "#85e3c9" },
+        { name: "支付利息", value: (totalInterest/10000).toFixed(4),unit: "万元", color: "#e7db20" }
       ]
     }
   },
